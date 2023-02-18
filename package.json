@@ -1,0 +1,22 @@
+{
+  "name": "album-events",
+  "version": "1.0.0",
+  "description": "to show full project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazenfteha/Album-events.git"
+  },
+  "author": "mazen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mazenfteha/Album-events/issues"
+  },
+  "homepage": "https://github.com/mazenfteha/Album-events#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
