@@ -1,10 +1,14 @@
 const express =require('express')
 const app =express()
 const db =require('./config/database')
+const bodyParser =require('body-parser')
 
 //bring ejs template 
 app.set('view engine', 'ejs')
 
+//bring body parser
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //bring static
 app.use(express.static('public'))
@@ -18,6 +22,7 @@ app.get('/', (req,res)=>{
 
 //bring events routes
 const events =require('./routes/event-routes')
+const { urlencoded } = require('body-parser')
 app.use('/events', events)
 
 
