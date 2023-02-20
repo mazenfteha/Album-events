@@ -22,7 +22,17 @@ router.get('/', (req,res)=>{
 //show single event
 router.get('/:id', (req,res)=>{
 
-    res.render('event/show')
+    Event.findOne({_id: req.params.id}, (err,event)=>{
+        if(!err){
+            res.render('event/show', {
+                event: event
+            })
+        }else {
+            console.log(err)
+        }
+        
+    })
+    
 })
 
 
