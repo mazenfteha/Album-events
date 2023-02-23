@@ -6,6 +6,6 @@ mongoose.connect('mongodb://localhost:27017/Album-events',{ useNewUrlParser: tru
     if (err){
         console.log(err)
     }else{
-        console.log("connected to db succesfuly")
+        console.log("connected to db successfuly")
     }
 })

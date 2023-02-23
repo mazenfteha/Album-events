@@ -6,13 +6,7 @@
             <h1 class="display-4">Add New Album Event:</h1>
             <hr>
 
-            <% if (errors) {%>
-                <% errors.forEach((err)=> {%>
-                    <div class="alert alert-danger">
-                            <%= err.msg%>
-                    </div>
-                <%})%>
-            <%}%>
+            <%- include('../partials/flashMessages') -%>
             <form  action="/events/create" method="post">
                 <div class="form-group">
                     <label for="title">Title</label>
