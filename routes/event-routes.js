@@ -2,6 +2,8 @@ const express =require('express')
 const router = express.Router()
 const Event =require('../models/Event')
 const {check, validationResult} =require('express-validator')
+const moment =require('moment');
+moment().format();
 
 //route to home events
 router.get('/', (req,res)=>{
@@ -81,5 +83,64 @@ router.get('/:id', (req,res)=>{
     
 })
 
+// edit route
+
+router.get('/edit/:id', (req,res)=> {
+
+    Event.findOne({_id: req.params.id}, (err,event)=> {
+        
+        if(!err) {
+       
+         res.render('event/edit', {
+             event: event,
+             eventDate: moment(event.date).format('YYYY-MM-DD'),
+             errors: req.flash('errors'),
+             message: req.flash('info')
+         })
+ 
+        } else {
+            console.log(err)
+        }
+     
+     })
+
+})
+
+// update the form
+
+router.post('/update',[
+    check('title').isLength({min: 5}).withMessage('Title should be more than 5 char'),
+    check('description').isLength({min: 5}).withMessage('Description should be more than 5 char'),
+    check('location').isLength({min: 3}).withMessage('Location should be more than 5 char'),
+    check('date').isLength({min: 5}).withMessage('Date should valid Date'),
+
+], (req,res)=> {
+    
+    const errors = validationResult(req)
+    if( !errors.isEmpty()) {
+       
+        req.flash('errors',errors.array())
+        res.redirect('/events/edit/' + req.body.id)
+    } else {
+       // crete obj
+       let newfeilds = {
+           title: req.body.title,
+           description: req.body.description,
+           location: req.body.location,
+           date: req.body.date
+       }
+       let query = {_id: req.body.id}
+
+       Event.updateOne(query, newfeilds, (err)=> {
+           if(!err) {
+               req.flash('info', " The event was updated successfuly"),
+               res.redirect('/events/edit/' + req.body.id)
+           } else {
+               console.log(err)
+           }
+       })
+    }
+   
+})
 
 module.exports = router
