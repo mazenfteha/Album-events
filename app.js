@@ -36,6 +36,10 @@ const events =require('./routes/event-routes')
 const { urlencoded } = require('body-parser')
 app.use('/events', events)
 
+//bring user routes
+const users =require('./routes/user-routes')
+app.use('/users', users)
+
 
 //listen to port 8081
 app.listen(8081 ,() =>{
