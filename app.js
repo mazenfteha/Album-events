@@ -25,9 +25,9 @@ app.use(session({
 }))
 app.use(flash())
 
-app.get('/', (req,res)=>{
 
-    res.send("it is working from web")
+app.get('/', (req,res)=>{
+    res.redirect('/events')
 })
 
 

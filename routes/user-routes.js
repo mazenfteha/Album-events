@@ -9,6 +9,7 @@ router.get('/login', (req,res)=>{
 
 
 router.post('/login', (req,res)=>{
+    console.log(req.body)
     res.json('login user ... ')
 })
 
@@ -18,7 +19,8 @@ router.get('/signup', (req,res)=>{
 })
 
 //sign up post req
-router.get('/signup', (req,res)=>{
+router.post('/signup', (req,res)=>{
+    console.log(req.body)
     res.json('register user ... ')
 })
 
