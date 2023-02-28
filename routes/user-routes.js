@@ -3,6 +3,12 @@ const passport = require('passport')
 const router = express.Router()
 const User =require('../models/User')
 
+//middleware to check if user is logged in
+isAuthenticated =(req,res,next)=>{
+    if (req.isAuthenticated()) return next()
+    res.redirect('/users/login')
+}
+
 //login user view
 router.get('/login', (req,res)=>{
     res.render('user/login', {
@@ -34,15 +40,18 @@ passport.authenticate('local.signup',{
 )
 
 //profile
-router.get('/profile', (req,res)=>{
+router.get('/profile',isAuthenticated,(req,res)=>{
     res.render('user/profile',{
         success: req.flash('success')
     })
 })
 
 //logout user
-router.get('/logout', (req,res)=>{
-    res.json('logout user....')
+router.get('/logout', (req,res,next)=>{
+    req.logout(function(err){
+        if (err) { return next(err); }
+    });
+    res.redirect('/users/login');
 })
 
 module.exports = router 

@@ -5,6 +5,12 @@ const {check, validationResult} =require('express-validator')
 const moment =require('moment');
 moment().format();
 
+//middleware to check if user is logged in
+isAuthenticated =(req,res,next)=>{
+    if (req.isAuthenticated()) return next()
+    res.redirect('/users/login')
+}
+
 //route to home events
 router.get('/', (req,res)=>{
     Event.find({}, (err,events) =>{
@@ -24,7 +30,7 @@ router.get('/', (req,res)=>{
 })
 
 //create new event
-router.get('/create', (req,res)=>{
+router.get('/create',isAuthenticated,(req,res)=>{
     res.render('event/create', {
         errors: req.flash('errors')
     })
