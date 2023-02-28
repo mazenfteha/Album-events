@@ -27,6 +27,11 @@ app.use(session({
 }))
 app.use(flash())
 
+//store user object
+app.get('*',(req,res,next)=>{
+    res.locals.user = req.user || null
+    next()
+})
 
 app.get('/', (req,res)=>{
     res.redirect('/events')
